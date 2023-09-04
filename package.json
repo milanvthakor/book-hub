@@ -1,0 +1,19 @@
+{
+  "name": "online-bookstore-api",
+  "version": "1.0.0",
+  "description": "A backend API for an online bookstore. The API will allow users to browse and search for books, view book details, add books to their cart, and place orders.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/milanvthakor/online-bookstore-api.git"
+  },
+  "author": "Milan Thakor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/milanvthakor/online-bookstore-api/issues"
+  },
+  "homepage": "https://github.com/milanvthakor/online-bookstore-api#readme"
+}
