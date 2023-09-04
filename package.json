@@ -2,9 +2,10 @@
   "name": "online-bookstore-api",
   "version": "1.0.0",
   "description": "A backend API for an online bookstore. The API will allow users to browse and search for books, view book details, add books to their cart, and place orders.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/milanvthakor/online-bookstore-api/issues"
   },
-  "homepage": "https://github.com/milanvthakor/online-bookstore-api#readme"
+  "homepage": "https://github.com/milanvthakor/online-bookstore-api#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
 }
