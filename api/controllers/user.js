@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt');
+const { default: mongoose } = require('mongoose');
+const jwt = require('jsonwebtoken');
+
 const { isValidEmail, isValidPassword } = require('../../utils/helper');
 const User = require('../models/user');
-const { default: mongoose } = require('mongoose');
 
 module.exports.register = async (req, res, next) => {
     const { email, password } = req.body;
@@ -47,3 +49,49 @@ module.exports.register = async (req, res, next) => {
         next(err);
     }
 };
+
+module.exports.login = async (req, res, next) => {
+    const { email, password } = req.body;
+
+    // Validate email
+    if (!isValidEmail(email)) {
+        const err = new Error('Invalid email')
+        err.status = 400;
+        return next(err);
+    }
+
+    // Validate password
+    if (!isValidPassword(password)) {
+        const err = new Error('Invalid password. The length must be between 8 and 12 characters')
+        err.status = 400;
+        return next(err);
+    }
+
+    try {
+        // Check if there exists a user with the given email or not.
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            const err = new Error('Login failed');
+            err.status = 401;
+            return next(err);
+        }
+
+        // Compare the passwords.
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
+            const err = new Error('Login failed');
+            err.status = 401;
+            return next(err);
+        }
+
+        // Generate JWT authentication token.
+        const token = jwt.sign({ email: email, id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+
+        res.status(200).json({
+            message: 'Login successfully',
+            token: token
+        });
+    } catch (err) {
+        next(err);
+    }
+}
