@@ -1,3 +1,6 @@
+// Load all the environment variables from the .env file.
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 
@@ -8,8 +11,20 @@ app.use(morgan());
 // Parse the incoming HTTP request body with the help of body-parser package
 // and populate the `req.body` object with the parsed data.
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Connect to MongoDB.
+const mongoose = require('mongoose');
+(async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log('successfully connected to MongoDB');
+    } catch (err) {
+        console.error('failed to connect to MongoDB: ' + err);
+        process.exit(1);
+    }
+})()
 
 // Set up available routes.
 const healthRoutes = require('./api/routes/health');
