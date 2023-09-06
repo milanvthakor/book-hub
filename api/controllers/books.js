@@ -26,6 +26,7 @@ module.exports.bookDetails = async (req, res, next) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         const err = new Error('Invalid id');
+        err.status = 400;
         return next(err);
     }
 
@@ -33,6 +34,7 @@ module.exports.bookDetails = async (req, res, next) => {
         const book = await Book.findById(id).select('-__v');
         if (!book) {
             const err = new Error('No book found with given id');
+            err.status = 404;
             return next(err);
         }
 
