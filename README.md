@@ -44,7 +44,7 @@ http://localhost:<PORT>
 - **URL**: `/user/register`
 - **Method**: `POST`
 - **Description**: This API endpoint allows users to register by providing their email and password.
-- **Required Parameters**: The request body must be in JSON format and include the following fields:
+- **Request Body**: The request body must be in JSON format and include the following fields:
     - `email` (string, required): The email address of the user.
     - `password` (string, required): The password for the user account.
 - **Example Request**:
@@ -70,7 +70,7 @@ http://localhost:<PORT>
 - **URL**: `/user/login`
 - **Method**: `POST`
 - **Description**: This API endpoint allows users to login by providing their email and password.
-- **Required Parameters**: The request body must be in JSON format and include the following fields:
+- **Request Body**: The request body must be in JSON format and include the following fields:
     - `email` (string, required): The email address of the user.
     - `password` (string, required): The password for the user account.
 - **Example Request**:
@@ -92,3 +92,57 @@ http://localhost:<PORT>
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlQGV4YW1wbGUuY29tIiwiaWQiOiI2NGY5Y2U1N2I4ZDg4ZGEyZDdkNjAwN2UiLCJpYXQiOjE2OTQwOTI4OTQsImV4cCI6MTY5NDA5NjQ5NH0.dXUcXMMHJsWspD89oiG43LyrbUjNBwKMKPK0_kcs-ug"
     }    
     ```
+
+#### Get Books
+- **URL**: `/books`
+- **Method**: `GET`
+- **Description**: This API endpoint allows users to retrieve a list of books. Users can also search for books by title or author by providing the `search` query string parameter.
+- **Query Parameters**:
+    - `search` (string, optional): Allows users to search for books by title or author. The search parameter is case-insensitive.
+- **Example Request**:
+    ```
+    GET /books?search=Author #0
+    ```
+- **Example Response**:
+    ```
+    Status Code: 200
+
+    {
+        "count": 1,
+        "books": [
+            {
+                "_id": "64f9d0581c650a4fad08bf81",
+                "title": "Book Title #0",
+                "isbn": "ISBN#0",
+                "author": "Book Author #0",
+                "genre": "Book Genre #0",
+                "price": 100
+            }
+        ]
+    }
+    ```
+
+#### Get Book by ID
+- **URL**: `/books/{id}`
+- **Method**: `GET`
+- **Description**: This API endpoint allows users to retrieve details of a book by providing its unique ID.
+- **Path Parameters**:
+    - `id` (integer, required): The unique ID of the book to retrieve.
+- **Example Request**:
+    ```
+    GET /books/64f9d0581c650a4fad08bf81
+    ```
+- **Example Response**:
+    ```
+    Status Code: 200
+
+    {
+        "_id": "64f9d0581c650a4fad08bf81",
+        "title": "Book Title #0",
+        "isbn": "ISBN#0",
+        "author": "Book Author #0",
+        "genre": "Book Genre #0",
+        "price": 100
+    }
+    ```
+
