@@ -87,7 +87,42 @@ module.exports.addBook = asyncHandler(async (req, res, next) => {
     });
 });
 
-module.exports.removeBook = async (req, res, next) => {
-    // TODO
-    res.status(200).json();
-}
+module.exports.removeBook = asyncHandler(async (req, res, next) => {
+    const bookId = req.query.bookId;
+
+    // Validate the given book id
+    if (!mongoose.Types.ObjectId.isValid(bookId)) {
+        const err = new Error('Invalid book id');
+        err.status = 400;
+        return next(err);
+    }
+
+    // Check if cart exists or not
+    const cart = await Cart.findOne({ userId: req.user.id });
+    if (!cart) {
+        const err = new Error('No cart found');
+        err.status = 400;
+        return next(err);
+    }
+
+    const bookIdx = cart.items.findIndex(item => item.bookId == bookId);
+    // Book doesn't exists in the cart.
+    if (bookIdx === -1) {
+        const err = new Error('No book found in the cart with given id');
+        err.status = 400;
+        return next(err);
+    }
+
+    // Remove book
+    cart.items.splice(bookIdx, 1);
+    cart.total = cart.items.reduce((prev, item) => parseFloat(prev + item.bookPrice * item.quantity), 0);
+    await cart.save();
+
+    res.status(200).json({
+        message: 'Book removed from cart successfully',
+        cart: {
+            items: cart.items,
+            total: cart.total
+        }
+    });
+});
