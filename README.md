@@ -2,6 +2,22 @@
 
 A backend API for an online bookstore. The API will allow users to browse and search for books, view book details, add books to their cart, and place orders.
 
+## Table of Contents
+1. [Set up and Run API locally](#set-up-and-run-api-locally)
+2. [API Documentation](#api-documentation)
+    1. [Base URL](#base-url)
+    2. [Endpoints](#endpoints)
+        1. [Health Check](#health-check)
+        2. [User Registration](#user-registration)
+        3. [User Login](#user-login)
+        4. [Get Books](#get-books)
+        5. [Get Book by ID](#get-book-by-id)
+        6. [Add Book to Cart](#add-book-to-cart)
+        7. [Remove Book from Cart](#remove-book-from-cart)
+        8. [View Cart](#view-cart)
+        9. [Place an Order(Checkout)](#place-an-order-checkout)
+        10. [View Order History](#view-order-history)
+
 ## Set up and Run API locally
 
 1. Open your command line terminal.
