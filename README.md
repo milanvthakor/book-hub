@@ -40,6 +40,23 @@ http://localhost:<PORT>
 
 ### Endpoints
 
+#### Health Check
+- **URL**: `/health`
+- **Method**: `GET`
+- **Description**: This API endpoint allows users to check the health of the server to ensure it is running properly.
+- **Example Request**:
+    ```
+    GET /health
+    ```
+- **Example Response**:
+    ```
+    Status Code: 200
+
+    {
+        "message": "Server is up and running!"
+    }
+    ```
+
 #### User Registration
 - **URL**: `/user/register`
 - **Method**: `POST`
