@@ -6,7 +6,7 @@ const app = express();
 
 // Log incoming requests with the help of morgan package.
 const morgan = require('morgan');
-app.use(morgan());
+app.use(morgan('combined'));
 
 // Parse the incoming HTTP request body with the help of body-parser package
 // and populate the `req.body` object with the parsed data.
