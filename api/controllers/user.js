@@ -68,7 +68,7 @@ module.exports.login = asyncHandler(async (req, res, next) => {
     // Check if there exists a user with the given email or not.
     const user = await User.findOne({ email: email });
     if (!user) {
-        const err = new Error('Login failed');
+        const err = new Error('Email does not exists');
         err.status = 401;
         return next(err);
     }
@@ -76,7 +76,7 @@ module.exports.login = asyncHandler(async (req, res, next) => {
     // Compare the passwords.
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-        const err = new Error('Login failed');
+        const err = new Error('Wrong password');
         err.status = 401;
         return next(err);
     }

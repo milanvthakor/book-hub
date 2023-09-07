@@ -2,12 +2,20 @@ const mongoose = require('mongoose');
 const Book = require('../models/book');
 const Cart = require('../models/cart');
 
-module.exports.view = async (req, res, next) => {
-    // TODO
-    res.status(200).json();
-}
+const asyncHandler = require('../../utils/async-handler');
 
-module.exports.addBook = async (req, res, next) => {
+module.exports.view = asyncHandler(async (req, res, next) => {
+    const cart = await Cart.findOne({ userId: req.user.id }).select('-__v');
+    if (!cart) {
+        const err = new Error('No cart found');
+        err.status = 400;
+        return next(err);
+    }
+
+    res.status(200).json(cart);
+});
+
+module.exports.addBook = asyncHandler(async (req, res, next) => {
     const { bookId, quantity } = req.body;
 
     // Validate the given book id
@@ -77,7 +85,7 @@ module.exports.addBook = async (req, res, next) => {
             total: cart.total
         }
     });
-}
+});
 
 module.exports.removeBook = async (req, res, next) => {
     // TODO
