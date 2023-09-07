@@ -38,7 +38,7 @@ A backend API for an online bookstore. The API will allow users to browse and se
 8. Start the API server:
     
     ```
-    npm start
+    node server.js
     ```
     The terminal should display a message `Server is running on http://localhost:<PORT>/`
 
