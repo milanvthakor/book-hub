@@ -243,3 +243,79 @@ http://localhost:<PORT>
     }
     ```
 
+#### Place an Order (Checkout)
+- **URL**: `/orders/checkout`
+- **Method**: `POST`
+- **Description**: This API endpoint allows users to place an order from their cart, effectively checking out. 
+- **Headers**:
+    - `Authorization` (string, required): The `Authorization` header must be set with a valid authentication token obtained from the `/user/login` endpoint. Use the format `Authorization: Bearer <token>`.
+- **Example Request**:
+    ```
+    POST /orders/checkout
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlQGV4YW1wbGUuY29tIiwiaWQiOiI2NGY5Y2U1N2I4ZDg4ZGEyZDdkNjAwN2UiLCJpYXQiOjE2OTQwOTI4OTQsImV4cCI6MTY5NDA5NjQ5NH0.dXUcXMMHJsWspD89oiG43LyrbUjNBwKMKPK0_kcs-ug
+    ```
+- **Example Response**:
+    ```
+    Status Code: 200
+
+    {
+        "message": "Order placed successfully",
+        "order": {
+            "_id": "64f9de9f3307fc306edf71e4",
+            "items": [
+                {
+                    "bookId": "64f9d0581c650a4fad08bf81",
+                    "bookPrice": 100,
+                    "quantity": 2
+                },
+                {
+                    "bookId": "64f9d0581c650a4fad08bf82",
+                    "bookPrice": 101,
+                    "quantity": 4
+                }
+            ],
+            "total": 604
+        }
+    }
+    ```
+
+#### View Order History
+- **URL**: `/orders`
+- **Method**: `GET`
+- **Description**: This API endpoint allows users to view their order history.
+- **Headers**:
+    - `Authorization` (string, required): The `Authorization` header must be set with a valid authentication token obtained from the `/user/login` endpoint. Use the format `Authorization: Bearer <token>`.
+- **Example Request**:
+    ```
+    GET /orders
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlQGV4YW1wbGUuY29tIiwiaWQiOiI2NGY5Y2U1N2I4ZDg4ZGEyZDdkNjAwN2UiLCJpYXQiOjE2OTQwOTI4OTQsImV4cCI6MTY5NDA5NjQ5NH0.dXUcXMMHJsWspD89oiG43LyrbUjNBwKMKPK0_kcs-ug
+    ```
+- **Example Response**:
+    ```
+    Status Code: 200
+
+    {
+        "count": 1,
+        "orders": [
+            {
+                "_id": "64f9de9f3307fc306edf71e4",
+                "userId": "64f9ce57b8d88da2d7d6007e",
+                "items": [
+                    {
+                        "bookId": "64f9d0581c650a4fad08bf81",
+                        "bookPrice": 100,
+                        "quantity": 2
+                    },
+                    {
+                        "bookId": "64f9d0581c650a4fad08bf82",
+                        "bookPrice": 101,
+                        "quantity": 4
+                    }
+                ],
+                "total": 604,
+                "createdAt": "2023-09-07T14:30:56.004Z",
+                "updatedAt": "2023-09-07T14:30:56.004Z"
+            }
+        ]
+    }
+    ```
