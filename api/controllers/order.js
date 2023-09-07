@@ -5,8 +5,12 @@ const Order = require('../models/order');
 const asyncHandler = require("../../utils/async-handler");
 
 module.exports.view = asyncHandler(async (req, res, next) => {
-    // TODO
-    res.status(200).json();
+    const orders = await Order.find({ userId: req.user.id }).select('-__v');
+
+    res.status(200).json({
+        count: orders.length,
+        orders: orders
+    });
 });
 
 module.exports.checkout = asyncHandler(async (req, res, next) => {
