@@ -129,19 +129,23 @@ http://localhost:<PORT>
 #### Get Books
 - **URL**: `/books`
 - **Method**: `GET`
-- **Description**: This API endpoint allows users to retrieve a list of books. Users can also search for books by title or author by providing the `search` query string parameter.
+- **Description**: This API endpoint allows users to retrieve a list of books. 
 - **Query Parameters**:
     - `search` (string, optional): Allows users to search for books by title or author. The search parameter is case-insensitive.
+    - `page` (integer, optional): Specifies the page number of the results. Defaults to page 1 if not provided.
+    - `perPage` (integer, optional): Specifies the number of items per page. Defaults to 10 items per page if not provided.
 - **Example Request**:
     ```
-    GET /books?search=Author #0
+    GET /books?search=Author #0&perPage=10&page=1
     ```
 - **Example Response**:
     ```
     Status Code: 200
 
     {
-        "count": 1,
+        "total": 10,
+        "page": 1,
+        "pageSize": 2,
         "books": [
             {
                 "_id": "64f9d0581c650a4fad08bf81",
@@ -150,6 +154,14 @@ http://localhost:<PORT>
                 "author": "Book Author #0",
                 "genre": "Book Genre #0",
                 "price": 100
+            },
+            {
+                "_id": "64f9d0581c650a4fad08bf82",
+                "title": "Book Title #1",
+                "isbn": "ISBN#1",
+                "author": "Book Author #1",
+                "genre": "Book Genre #1",
+                "price": 101
             }
         ]
     }
