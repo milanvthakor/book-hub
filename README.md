@@ -127,7 +127,7 @@ http://localhost:<PORT>
 - **Method**: `GET`
 - **Description**: This API endpoint allows users to retrieve details of a book by providing its unique ID.
 - **Path Parameters**:
-    - `id` (integer, required): The unique ID of the book to retrieve.
+    - `id` (string, required): The unique ID of the book to retrieve.
 - **Example Request**:
     ```
     GET /books/64f9d0581c650a4fad08bf81
@@ -143,6 +143,103 @@ http://localhost:<PORT>
         "author": "Book Author #0",
         "genre": "Book Genre #0",
         "price": 100
+    }
+    ```
+
+#### Add Book to Cart
+- **URL**: `/cart`
+- **Method**: `POST`
+- **Description**: This API endpoint allows users to add a book to their cart by providing the book ID and quantity.
+- **Headers**:
+    - `Authorization` (string, required): The `Authorization` header must be set with a valid authentication token obtained from the `/user/login` endpoint. Use the format `Authorization: Bearer <token>`.
+- **Request Body**: The request body must be in JSON format and include the following fields:
+    - `bookId` (string, required): The ID of the book to add to the cart.
+    - `quantity` (integer, required): The quantity of the book to add to the cart.
+- **Example Request**:
+    ```
+    POST /cart
+    Content-Type: application/json
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlQGV4YW1wbGUuY29tIiwiaWQiOiI2NGY5Y2U1N2I4ZDg4ZGEyZDdkNjAwN2UiLCJpYXQiOjE2OTQwOTI4OTQsImV4cCI6MTY5NDA5NjQ5NH0.dXUcXMMHJsWspD89oiG43LyrbUjNBwKMKPK0_kcs-ug
+
+    {
+        "bookId": "64f9d0581c650a4fad08bf81",
+        "quantity": 2
+    }
+    ```
+- **Example Response**:
+    ```
+    Status Code: 200
+
+    {
+        "message": "Book added into cart successfully",
+        "cart": {
+            "items": [
+                {
+                    "bookId": "64f9d0581c650a4fad08bf81",
+                    "bookPrice": 100,
+                    "quantity": 2
+                }
+            ],
+            "total": 200
+        }
+    }
+    ```
+
+#### Remove Book from Cart
+- **URL**: `/cart`
+- **Method**: `DELETE`
+- **Description**: This API endpoint allows users to remove a book from their cart by providing the book ID.
+- **Headers**:
+    - `Authorization` (string, required): The `Authorization` header must be set with a valid authentication token obtained from the `/user/login` endpoint. Use the format `Authorization: Bearer <token>`.
+- **Query Parameters**:
+    - `bookId` (string, required): The ID of the book to remove from the cart.
+- **Example Request**:
+    ```
+    DELETE /cart?bookId=64f9d0581c650a4fad08bf81
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlQGV4YW1wbGUuY29tIiwiaWQiOiI2NGY5Y2U1N2I4ZDg4ZGEyZDdkNjAwN2UiLCJpYXQiOjE2OTQwOTI4OTQsImV4cCI6MTY5NDA5NjQ5NH0.dXUcXMMHJsWspD89oiG43LyrbUjNBwKMKPK0_kcs-ug
+    ```
+- **Example Response**:
+    ```
+    Status Code: 200
+
+    {
+        "message": "Book removed from cart successfully",
+        "cart": {
+            "items": [],
+            "total": 0
+        }
+    }
+    ```
+
+#### View Cart
+- **URL**: `/cart`
+- **Method**: `GET`
+- **Description**: This API endpoint allows users to view the contents of their cart.
+- **Headers**:
+    - `Authorization` (string, required): The `Authorization` header must be set with a valid authentication token obtained from the `/user/login` endpoint. Use the format `Authorization: Bearer <token>`.
+- **Example Request**:
+    ```
+    GET /cart
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlQGV4YW1wbGUuY29tIiwiaWQiOiI2NGY5Y2U1N2I4ZDg4ZGEyZDdkNjAwN2UiLCJpYXQiOjE2OTQwOTI4OTQsImV4cCI6MTY5NDA5NjQ5NH0.dXUcXMMHJsWspD89oiG43LyrbUjNBwKMKPK0_kcs-ug
+    ```
+- **Example Response**:
+    ```
+    Status Code: 200
+
+    {
+        "items": [
+            {
+                "bookId": "64f9d0581c650a4fad08bf81",
+                "bookPrice": 100,
+                "quantity": 2
+            },
+            {
+                "bookId": "64f9d0581c650a4fad08bf82",
+                "bookPrice": 101,
+                "quantity": 4
+            }
+        ],
+        "total": 604
     }
     ```
 
