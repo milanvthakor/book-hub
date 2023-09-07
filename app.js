@@ -30,10 +30,12 @@ const mongoose = require('mongoose');
 const healthRoutes = require('./api/routes/health');
 const userRoutes = require('./api/routes/user');
 const booksRoutes = require('./api/routes/books');
+const cartRoutes = require('./api/routes/cart');
 
 app.use('/health', healthRoutes);
 app.use('/user', userRoutes);
 app.use('/books', booksRoutes);
+app.use('/cart', cartRoutes);
 
 // If the request URI doesn't match any routes, throw an error.
 app.use((req, res, next) => {

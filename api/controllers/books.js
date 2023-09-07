@@ -24,6 +24,7 @@ module.exports.books = async (req, res, next) => {
 module.exports.bookDetails = async (req, res, next) => {
     const id = req.params.id;
 
+    // Validate the book id
     if (!mongoose.Types.ObjectId.isValid(id)) {
         const err = new Error('Invalid id');
         err.status = 400;
@@ -31,6 +32,7 @@ module.exports.bookDetails = async (req, res, next) => {
     }
 
     try {
+        // Check if there exists any book with the given id or not
         const book = await Book.findById(id).select('-__v');
         if (!book) {
             const err = new Error('No book found with given id');
