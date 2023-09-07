@@ -134,18 +134,20 @@ http://localhost:<PORT>
     - `search` (string, optional): Allows users to search for books by title or author. The search parameter is case-insensitive.
     - `page` (integer, optional): Specifies the page number of the results. Defaults to page 1 if not provided.
     - `perPage` (integer, optional): Specifies the number of items per page. Defaults to 10 items per page if not provided.
+    - `sortBy` (string, optional): Specifies the field by which to sort the results. Defaults to sorting by _id if not provided.
+    - `sortOrder` (string, optional): Specifies the sort order. Use "asc" for ascending order and "desc" for descending order. Defaults to ascending order if not provided.
 - **Example Request**:
     ```
-    GET /books?search=Author #0&perPage=10&page=1
+    GET /books?search=Author #0&perPage=10&page=1&sortBy=_id&sortOrder=asc
     ```
 - **Example Response**:
     ```
     Status Code: 200
 
     {
-        "total": 10,
+        "total": 1,
         "page": 1,
-        "pageSize": 2,
+        "pageSize": 1,
         "books": [
             {
                 "_id": "64f9d0581c650a4fad08bf81",
@@ -154,14 +156,6 @@ http://localhost:<PORT>
                 "author": "Book Author #0",
                 "genre": "Book Genre #0",
                 "price": 100
-            },
-            {
-                "_id": "64f9d0581c650a4fad08bf82",
-                "title": "Book Title #1",
-                "isbn": "ISBN#1",
-                "author": "Book Author #1",
-                "genre": "Book Genre #1",
-                "price": 101
             }
         ]
     }
