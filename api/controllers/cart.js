@@ -12,7 +12,10 @@ module.exports.view = asyncHandler(async (req, res, next) => {
         return next(err);
     }
 
-    res.status(200).json(cart);
+    res.status(200).json({
+        items: cart.items,
+        total: cart.total
+    });
 });
 
 module.exports.addBook = asyncHandler(async (req, res, next) => {
